@@ -27,8 +27,8 @@ record_gs4  <-  function(key, email, auth_fun = submitr:::auth_gs4) {
     # Cache the events so fewer requests are made to Google
     tmp <- local_env$sofar
     for_hash <- local_env$for_hash
-    tmp <- rbind(tmp, this_event)
-    for_hash <- rbind(for_hash, this_event)
+    tmp <- rbind(tmp, this_event[, names(tmp)])
+    for_hash <- rbind(for_hash, this_event[, names(for_hash)])
     assign("sofar", tmp, envir = local_env)
     assign("for_hash", for_hash, envir = local_env)
     if (nrow(tmp) >= 5) {
