@@ -32,7 +32,7 @@ make_a_recorder <- function(store_fun, submitr_id) {
                              session_id = session_id,
                              event = event_type,
                              tutorial = paste(data$label, event_type, tutorial_id, tutorial_version),
-                             stringsAsFactors = FALSE)
+                             stringsAsFactors = FALSE)[1, ]
     # Other fields are
     #    prompt, answer, correct, feedback
     if (event_type %in% c("essay", "multiple-choice")) {
@@ -82,9 +82,10 @@ learnr_event_type <- function(data) {
     else return("unchecked-code")
   }
   if ("question" %in% names(data) && !("reset" %in% names(data))) {
-    if (grepl("Essay[0-9]+$", data$label) ||
-        grepl(" $", data$question)) return("essay")
-    else return("multiple-choice")
+   # if (grepl("Essay[0-9]+$", data$label) ||
+   #     grepl(" $", data$question)) return("essay")
+   # else return("multiple-choice")
+     return("multiple-choice")
   }
 
   "trash"
