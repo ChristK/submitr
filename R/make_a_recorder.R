@@ -32,6 +32,10 @@ make_a_recorder <- function(store_fun, submitr_id) {
                              session_id = session_id,
                              event = event_type,
                              tutorial = paste(data$label, event_type, tutorial_id, tutorial_version),
+                             prompt = "None",
+                             answer = "None",
+                             correct = "None",
+                             feedback = "None",
                              stringsAsFactors = FALSE)[1, ] # fix for questions with more than 1 answers
     # Other fields are
     #    prompt, answer, correct, feedback
@@ -43,7 +47,7 @@ make_a_recorder <- function(store_fun, submitr_id) {
       this_event$feedback <- paste(as.character(nchar(data$answer)), "chars")
       } else {
         this_event$correct <- data$correct
-        this_event$feedback <- "none"
+        this_event$feedback <- "None"
       }
     } else if (event_type == "unchecked-code") {
       # THIS SHOULDN'T BE RECORDED
@@ -85,7 +89,7 @@ learnr_event_type <- function(data) {
     if (grepl("Essay[0-9]+$", data$label) ||
         grepl(" $", data$question)) return("essay")
      else return("multiple-choice")
-    
+
   }
 
   "trash"

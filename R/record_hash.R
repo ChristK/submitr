@@ -14,7 +14,7 @@ record_hash  <-  function() {
   }
   write <- function(this_event) {
     tmp <- local_env$sofar
-    tmp <- rbind(tmp, this_event[, names(tmp)])
+    tmp <- rbind(tmp, this_event)
     assign("sofar", tmp, envir = local_env)
 
     this_event
