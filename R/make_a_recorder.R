@@ -32,12 +32,12 @@ make_a_recorder <- function(store_fun, submitr_id) {
                              session_id = session_id,
                              event = event_type,
                              tutorial = paste(data$label, event_type, tutorial_id, tutorial_version),
-                             stringsAsFactors = FALSE)
+                             stringsAsFactors = FALSE)[1, ] # fix for questions with multiple correct answers
     # Other fields are
     #    prompt, answer, correct, feedback
     if (event_type %in% c("essay", "multiple-choice")) {
       this_event$prompt <- data$question
-      this_event$answer <- data$answer
+      this_event$answer <- paste(sort(data$answer), collapse = ", ") # fix for questions with multiple correct answers
       if (event_type == "essay") {
       this_event$correct <- FALSE
       this_event$feedback <- paste(as.character(nchar(data$answer)), "chars")
