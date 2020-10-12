@@ -70,6 +70,17 @@ make_a_recorder <- function(store_fun, submitr_id) {
       this_event$correct <- FALSE
       this_event$feedback <- "watching"
     }
+
+    # ensure all this_event have same length
+    if (ncol(this_event) != 9L) {
+      for (j in c("time",	"id",	"session_id",	"event",	"tutorial",	"prompt",
+                  "answer",	"correct",	"feedback")) {
+        if (!j %in% names(this_event) || this_event[j] == "") {
+          this_event[j] <- "None"
+        }
+      }
+    }
+
     ss <- store_fun(this_event[1,]) # [1,] just in case a field is a vector
     ss
 
@@ -91,6 +102,8 @@ learnr_event_type <- function(data) {
      else return("multiple-choice")
 
   }
+  # do not record events when there is no answer (i.e. when click try again)
+  # if (!"answer" %in% names(data)) return("trash")
 
   "trash"
 }
