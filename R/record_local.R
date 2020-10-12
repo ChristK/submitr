@@ -30,5 +30,5 @@ record_local <- function(key, email = "") {
     file.copy(key, fname, overwrite =  TRUE)
   }
 
-  list(write = write, read_submissions = read_submissions)
+  list(write = write, read_submissions = read_submissions, flush = flush)
 }
