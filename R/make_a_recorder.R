@@ -36,13 +36,13 @@ make_a_recorder <- function(store_fun, submitr_id) {
     # Other fields are
     #    prompt, answer, correct, feedback
     if (event_type %in% c("essay", "multiple-choice")) {
-      this_event$prompt <- paste0(data$question) fix for questions with more than 1 answers
+      this_event$prompt <- paste0(data$question) # fix for questions with more than 1 answers
       this_event$answer <- paste0(data$answer) # fix for questions with more than 1 answers
       if (event_type == "essay") {
       this_event$correct <- FALSE
       this_event$feedback <- paste(as.character(nchar(data$answer)), "chars")
       } else {
-        this_event$correct <- paste0(data$correct) fix for questions with more than 1 answers
+        this_event$correct <- paste0(data$correct) # fix for questions with more than 1 answers
         this_event$feedback <- "none"
       }
     } else if (event_type == "unchecked-code") {
